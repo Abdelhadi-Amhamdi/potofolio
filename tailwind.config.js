@@ -8,6 +8,9 @@ export default {
     extend: {
       colors : {
         "primary" : "#009688",
+      },
+      backgroundImage : {
+        "ascii" : 'url("/ascii.svg")'
       }
     },
   },
