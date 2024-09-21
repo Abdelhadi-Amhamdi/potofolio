@@ -119,7 +119,7 @@ function Articles() {
           {
             articles.map((art, index) => {
               return (
-                <li key={index} className={`${theme?.theme == 'dark' ? "border-white/10" : ""} backdrop-blur-sm sm:max-w-[250px] relative border-[.3px] p-2 rounded-sm`}>
+                <li key={index} className={`${theme?.theme == 'dark' ? "border-white/10" : ""} backdrop-blur-none sm:max-w-[250px] relative border-[.3px] p-2 rounded-sm`}>
                   <img src={art.image} className='rounded-t-sm' alt="" />
                   <div className='p-2'>
                     <ul className='flex text-[16px] mb-2'>
