@@ -1,21 +1,19 @@
 
-import {FaMoon, FaGithub , FaTwitter, FaLinkedin, FaInstagram, FaPhone, FaMailBulk} from 'react-icons/fa'
-import {projects, infos, articles} from './data.js'
+import {FaMoon, FaPhone, FaMailBulk} from 'react-icons/fa'
+import {projects, infos, articles, links} from './data.js'
 import { FaLocationDot } from 'react-icons/fa6'
-import ThemeContextProvider, {ThemeContext, ThemeHandlerContext} from './contexts.js'
-import { useContext, useState } from 'react'
+import ThemeContextProvider, {ThemeContext} from './contexts.js'
+import { useContext } from 'react'
 
 
 function Nav() {
   const theme = useContext(ThemeContext)
-  const themeHandler = useContext(ThemeHandlerContext)
-  console.log(theme)
   return (
       <nav className={`flex justify-between w-full p-4`}>
         <h1 className=''>aamhamdi</h1>
         <ul className='flex items-center'>
           <li onClick={() => {
-            themeHandler(theme == 'light' ? 'dark' : 'light')
+            theme?.themeHandler(theme?.theme == 'light' ? 'dark' : 'light')
           }} className='cursor-pointer border-[1px] h-[35px] p-2 rounded-full'>
             <FaMoon />
           </li>
@@ -28,17 +26,15 @@ function Nav() {
 }
 
 function Hero() {
-  const theme = useContext(ThemeContext)
   return (
         <div className={`p-2 mt-10 sm:flex sm:justify-center text-center`}>
           <div className='sm:w-1/2'>
             <h1 className='text-xl font-bold my-8'>Hi, I'm <span className='text-primary'>Abdelhadi Amhamdi</span> 👋</h1>
             <p className='text-[12px] px-6 text-pretty'>I'm a passionate computer science student with a deep interest in software development, web technologies, and problem-solving. I'm always eager to learn new things and apply my knowledge to build efficient and scalable solutions.</p>
             <ul className='ml-[50%] translate-x-[-50%] m-8 flex w-[200px] justify-evenly p-2'>
-              <li><FaGithub /></li>
-              <li><FaTwitter /></li>
-              <li><FaLinkedin /></li>
-              <li><FaInstagram /></li>
+              {
+                links.map((l, index) => <a key={index} href={l.link}>{l.icon}</a>)
+              }
             </ul>
           </div>
           <div className='sm:w-1/2 '>
@@ -93,14 +89,14 @@ function Projects() {
           <h1 className='my-10 text-center'>🔧 What I'm working on</h1>
           <ul className='grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4'>
           {
-            projects.map((project, index : Number) => {
+            projects.map((project, index) => {
               return (
-                <li key={index} className={`relative border-[.3px] p-2 rounded-sm ${theme == 'dark' ? "border-white/10" : ""}`}>
-                  <img src="/img.png" className='rounded-t-sm' alt="" />
+                <li key={index} className={`backdrop-blur-none relative border-[.3px] p-2 rounded-sm ${theme?.theme == 'dark' ? "border-white/10" : ""}`}>
+                  <img src={project.img} className='rounded-t-sm h-[150px] w-full' alt="" />
                   <div className='absolute top-[3px] left-[3px] rounded-sm text-[12px] bg-primary text-white px-4 py-1 '>{project.categorie}</div>
                   <div className='p-2'>
                     <ul className='flex text-[16px] mb-2'>
-                      {project.tech.map((t, index : Number) => <li key={index} className='mr-2'>{t}</li>)}
+                      {project.tech.map((t, index) => <li key={index} className='mr-2'>{t}</li>)}
                     </ul>
                     <h1 className='mb-2'>{project.title}</h1>
                     <p className='text-[10px]'>{project.description}</p>
@@ -123,7 +119,7 @@ function Articles() {
           {
             articles.map((art, index) => {
               return (
-                <li key={index} className={`${theme == 'dark' ? "border-white/10" : ""} sm:max-w-[250px] relative border-[.3px] p-2 rounded-sm`}>
+                <li key={index} className={`${theme?.theme == 'dark' ? "border-white/10" : ""} backdrop-blur-sm sm:max-w-[250px] relative border-[.3px] p-2 rounded-sm`}>
                   <img src={art.image} className='rounded-t-sm' alt="" />
                   <div className='p-2'>
                     <ul className='flex text-[16px] mb-2'>
@@ -143,7 +139,7 @@ function Articles() {
 
 function Footer() {
   return (
-        <footer className='w-full p-2 bg-primary mt-10'>
+        <footer className='w-full p-2 bg-primary/10 backdrop-blur-sm mt-10 py-10'>
           <div className='p-2 w-1/2 h-full'>
             <ul className='text-[10px]'>
               <li className='flex items-center'>
@@ -152,16 +148,16 @@ function Footer() {
                 </div>
                 <div className='text-white'>
                   <div className='font-bold'>{infos.address}</div>
-                  <div className='mt-[2px]'>{infos.code}</div>
+                  <div className='mt-[6px]'>{infos.code}</div>
                 </div>
               </li>
-              <li className='flex mt-2 items-center'>
+              <li className='flex mt-6 items-center'>
                 <div className='bg-white text-black/80  p-2 mr-2 rounded-full'>
                   <FaPhone />
                 </div>
                 <span className='text-white'>{infos.phone}</span>
               </li>
-              <li className='flex mt-2 items-center'>
+              <li className='flex mt-6 items-center'>
                 <div className='bg-white text-black/80 p-2 mr-2 rounded-full'>
                   <FaMailBulk />
                 </div>
@@ -176,31 +172,27 @@ function Footer() {
   )
 }
 
-function App() {
-  let t = window.localStorage.getItem("theme")
-  if (!t) {
-    t = "light"
-    window.localStorage.setItem("theme", t)
-  }
-  const [theme, setTheme] = useState<String>(t)
-
-  const themeHandler = (th : String) => {
-    setTheme(th)
-    window.localStorage.setItem("theme", th)
-  }
-
+function Main() {
+  const theme = useContext(ThemeContext)
   return (
-    <div className='overflow-hidden'>
-      <ThemeContextProvider theme={theme} handler={themeHandler}>
-        <div className={`${theme == 'light' ? "bg-white text-black/70" : "bg-black/90 text-white"}`}>
+        <div className={`${theme?.theme == 'light' ? "bg-white text-black/70" : "bg-black text-white"} bg-ascii`}>
           <Nav />
           <div className='max-w-[900px] mx-auto'>
             <Hero />
             <Projects />
             <Articles />
-            <Footer />
           </div>
+            <Footer />
         </div>
+  )
+}
+
+function App() {
+
+  return (
+    <div className='p-0 m-0 box-border w-[100vw] h-[100vh]'>
+      <ThemeContextProvider>
+        <Main />
       </ThemeContextProvider>
     </div>
   )
