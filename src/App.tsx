@@ -1,5 +1,5 @@
 
-import {FaMoon, FaPhone, FaMailBulk} from 'react-icons/fa'
+import {FaMoon, FaPhone, FaMailBulk, FaReact} from 'react-icons/fa'
 import {projects, infos, articles, links} from './data.js'
 import { FaLocationDot } from 'react-icons/fa6'
 import ThemeContextProvider, {ThemeContext} from './contexts.js'
@@ -10,14 +10,19 @@ function Nav() {
   const theme = useContext(ThemeContext)
   return (
       <nav className={`flex justify-between w-full p-4`}>
-        <h1 className=''>aamhamdi</h1>
+        <h1 className='text-sm'>
+          <span className='text-2xl bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-transparent bg-clip-text'>A
+            <span className='text-sm'>2.</span>
+          </span>
+          M
+        </h1>
         <ul className='flex items-center'>
           <li onClick={() => {
             theme?.themeHandler(theme?.theme == 'light' ? 'dark' : 'light')
           }} className='cursor-pointer border-[1px] h-[35px] p-2 rounded-full'>
             <FaMoon />
           </li>
-          <li className='ml-4 bg-primary h-[35px] flex items-center text-white py-1 px-4 rounded-full'>
+          <li className='ml-4 bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] h-[35px] flex items-center text-white py-1 px-4 rounded-full'>
             <h1 className='capitalize text-[13px]'>resume</h1>
           </li>
         </ul>
@@ -29,7 +34,7 @@ function Hero() {
   return (
         <div className={`p-2 mt-10 sm:flex sm:justify-center text-center`}>
           <div className='sm:w-1/2'>
-            <h1 className='text-xl font-bold my-8'>Hi, I'm <span className='text-primary'>Abdelhadi Amhamdi</span> 👋</h1>
+            <h1 className='text-xl font-bold my-8'>Hi, I'm <span className='bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-transparent bg-clip-text'>Abdelhadi Amhamdi</span> 👋</h1>
             <p className='text-[12px] px-6 text-pretty'>I'm a passionate computer science student with a deep interest in software development, web technologies, and problem-solving. I'm always eager to learn new things and apply my knowledge to build efficient and scalable solutions.</p>
             <ul className='ml-[50%] translate-x-[-50%] m-8 flex w-[200px] justify-evenly p-2'>
               {
@@ -47,6 +52,7 @@ function Hero() {
 
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, useGLTF } from '@react-three/drei'
+import { SiTailwindcss, SiThreedotjs, SiTypescript } from 'react-icons/si'
 
 function Computer() {
   const computer = useGLTF('/setup/scene.gltf')
@@ -86,14 +92,14 @@ function Projects() {
   const theme = useContext(ThemeContext)
   return (
       <div className='w-[300px] sm:w-full sm:px-6 my-2 ml-[50%] translate-x-[-50%]'>
-          <h1 className='my-10 text-center'>🔧 What I'm working on</h1>
+          <h1 className='my-10 text-center'>⚒ What I'm working on</h1>
           <ul className='grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4'>
           {
             projects.map((project, index) => {
               return (
                 <li key={index} className={`backdrop-blur-none relative border-[.3px] p-2 rounded-sm ${theme?.theme == 'dark' ? "border-white/10" : ""}`}>
                   <img src={project.img} className='rounded-t-sm h-[150px] w-full' alt="" />
-                  <div className='absolute top-[3px] left-[3px] rounded-sm text-[12px] bg-primary text-white px-4 py-1 '>{project.categorie}</div>
+                  <div className='absolute top-[3px] capitalize left-[3px] rounded-sm text-[12px] bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-white px-4 py-1 '>{project.categorie}</div>
                   <div className='p-2'>
                     <ul className='flex text-[16px] mb-2'>
                       {project.tech.map((t, index) => <li key={index} className='mr-2'>{t}</li>)}
@@ -114,13 +120,13 @@ function Articles() {
   const theme = useContext(ThemeContext)
   return (
     <div className='w-[300px] sm:w-full sm:px-6 h-fit ml-[50%] translate-x-[-50%] mt-10'>
-      <h1 className='my-10 text-center'>🔧 My Articles</h1>
+      <h1 className='my-10 text-center'>📜 My Articles</h1>
       <ul className='grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 gap-4'>
           {
             articles.map((art, index) => {
               return (
                 <li key={index} className={`${theme?.theme == 'dark' ? "border-white/10" : ""} backdrop-blur-sm sm:max-w-[250px] relative border-[.3px] p-2 rounded-sm`}>
-                  <img src={art.image} className='rounded-t-sm' alt="" />
+                  <img src={art.image} className='rounded-t-sm h-[150px] w-full' alt="" />
                   <div className='p-2'>
                     <ul className='flex text-[16px] mb-2'>
                       {art.tags.map((t, index) => <li key={index} className='mr-2'>#{t}</li>)}
@@ -138,35 +144,44 @@ function Articles() {
 }
 
 function Footer() {
+  const theme = useContext(ThemeContext)
   return (
-        <footer className='w-full p-2 bg-primary/10 backdrop-blur-sm mt-10 py-10'>
+        <footer className={`w-full p-2 backdrop-blur-sm mt-10 py-4  flex items-center ${theme?.theme == 'dark' ? "bg-white/10" : "bg-black/90 text-white"}`}>
           <div className='p-2 w-1/2 h-full'>
-            <ul className='text-[10px]'>
+            <ul className='text-[10px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
               <li className='flex items-center'>
-                <div className='bg-white text-black/80  p-2 mr-2 rounded-full'>
+                <div className='text-white bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] p-2 mr-2 rounded-full'>
                   <FaLocationDot />
                 </div>
-                <div className='text-white'>
+                <div className=''>
                   <div className='font-bold'>{infos.address}</div>
                   <div className='mt-[6px]'>{infos.code}</div>
                 </div>
               </li>
-              <li className='flex mt-6 items-center'>
-                <div className='bg-white text-black/80  p-2 mr-2 rounded-full'>
+              <li className='flex items-center'>
+                <div className='text-white bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121]  p-2 mr-2 rounded-full'>
                   <FaPhone />
                 </div>
-                <span className='text-white'>{infos.phone}</span>
+                <span className=''>{infos.phone}</span>
               </li>
-              <li className='flex mt-6 items-center'>
-                <div className='bg-white text-black/80 p-2 mr-2 rounded-full'>
+              <li className='flex items-center'>
+                <div className='text-white bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] p-2 mr-2 rounded-full'>
                   <FaMailBulk />
                 </div>
-                <span className='text-white'>{infos.email}</span>
+                <span className=''>{infos.email}</span>
               </li>
             </ul>
           </div>
-          <div>
-
+          <div className='flex justify-center h-full w-1/2'>
+            <div className=''>
+              <h1 className='capitalize text-[14px]'>made with ❤️ using</h1>
+              <ul className='flex mt-4 justify-evenly'>
+                <li><FaReact /></li>
+                <li><SiTypescript /></li>
+                <li><SiTailwindcss /></li>
+                <li><SiThreedotjs /></li>
+              </ul>
+            </div>
           </div>
         </footer>
   )
