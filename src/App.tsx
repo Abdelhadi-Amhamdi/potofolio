@@ -4,6 +4,18 @@ import {projects, infos, articles, links} from './data.js'
 import { FaLocationDot } from 'react-icons/fa6'
 import ThemeContextProvider, {ThemeContext} from './contexts.js'
 import { useContext } from 'react'
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider, Outlet } from 'react-router-dom'
+
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' element={<Main />}>
+      <Route index element={<Page1 />} />
+      <Route path='test' element={<h1>hello</h1>}></Route>
+    </Route>
+  )
+)
+
 
 
 function Nav() {
@@ -187,16 +199,22 @@ function Footer() {
   )
 }
 
+function Page1() {
+  return (
+    <div className='max-w-[900px] mx-auto'>
+      <Hero />
+      <Projects />
+      <Articles />
+    </div>
+  )
+}
+
 function Main() {
   const theme = useContext(ThemeContext)
   return (
-        <div className={`${theme?.theme == 'light' ? "bg-white text-black/70" : "bg-black text-white"} bg-ascii w-full h-full overflow-y-scroll`}>
+        <div className={`${theme?.theme == 'light' ? "bg-white text-black/80" : "bg-black text-white"} bg-ascii w-full h-full overflow-y-scroll`}>
           <Nav />
-          <div className='max-w-[900px] mx-auto'>
-            <Hero />
-            <Projects />
-            <Articles />
-          </div>
+            <Outlet />
             <Footer />
         </div>
   )
@@ -207,7 +225,7 @@ function App() {
   return (
     <div className='p-0 m-0 box-border overflow-hidden w-[100vw] h-[100vh]'>
       <ThemeContextProvider>
-        <Main />
+        <RouterProvider router={router} />
       </ThemeContextProvider>
     </div>
   )

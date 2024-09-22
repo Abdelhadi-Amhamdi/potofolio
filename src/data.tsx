@@ -63,7 +63,7 @@ export const projects = [
 
 export const infos = {
     address : "Khouribga",
-    code : "25000, massira",
+    code : "25000, el massira",
     phone : "+2126 90 73 14 52",
     email : "aamhamdi943@gmail.com",
 }
