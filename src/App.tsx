@@ -38,7 +38,7 @@ function Hero() {
             <p className='text-[12px] px-6 text-pretty'>I'm a passionate computer science student with a deep interest in software development, web technologies, and problem-solving. I'm always eager to learn new things and apply my knowledge to build efficient and scalable solutions.</p>
             <ul className='ml-[50%] translate-x-[-50%] m-8 flex w-[200px] justify-evenly p-2'>
               {
-                links.map((l, index) => <a key={index} href={l.link}>{l.icon}</a>)
+                links.map((l, index) => <a target="_blank" key={index} href={l.link}>{l.icon}</a>)
               }
             </ul>
           </div>
@@ -97,7 +97,7 @@ function Projects() {
           {
             projects.map((project, index) => {
               return (
-                <li key={index} className={`backdrop-blur-none relative border-[.3px] p-2 rounded-sm ${theme?.theme == 'dark' ? "border-white/10" : ""}`}>
+                <li key={index} className={`backdrop-blur-none relative border-[.3px] p-2 rounded-sm ${theme?.theme == 'dark' ? "border-white/20" : "border-black/20"}`}>
                   <img src={project.img} className='rounded-t-sm h-[150px] w-full' alt="" />
                   <div className='absolute top-[3px] capitalize left-[3px] rounded-sm text-[12px] bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-white px-4 py-1 '>{project.categorie}</div>
                   <div className='p-2'>
@@ -190,7 +190,7 @@ function Footer() {
 function Main() {
   const theme = useContext(ThemeContext)
   return (
-        <div className={`${theme?.theme == 'light' ? "bg-white text-black/70" : "bg-black text-white"} bg-ascii`}>
+        <div className={`${theme?.theme == 'light' ? "bg-white text-black/70" : "bg-black text-white"} bg-ascii w-full h-full overflow-y-scroll`}>
           <Nav />
           <div className='max-w-[900px] mx-auto'>
             <Hero />
@@ -205,7 +205,7 @@ function Main() {
 function App() {
 
   return (
-    <div className='p-0 m-0 box-border w-[100vw] h-[100vh]'>
+    <div className='p-0 m-0 box-border overflow-hidden w-[100vw] h-[100vh]'>
       <ThemeContextProvider>
         <Main />
       </ThemeContextProvider>
