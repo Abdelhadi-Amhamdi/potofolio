@@ -1,9 +1,9 @@
 
 import {FaMoon, FaPhone, FaMailBulk, FaReact, FaArrowLeft} from 'react-icons/fa'
-import {getIcon, infos, articles, links} from './data.js'
+import {projects, getIcon, infos, articles, links} from './data.js'
 import { FaLocationDot } from 'react-icons/fa6'
 import ThemeContextProvider, {ThemeContext} from './contexts.js'
-import { useContext, useEffect, useState } from 'react'
+import {Suspense, useContext, useEffect, useState, lazy } from 'react'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider, Outlet, useParams, Link } from 'react-router-dom'
 
 
@@ -40,24 +40,25 @@ function DetailsPage() {
 
   useEffect(() => {
     const timer = setTimeout(async () => {
+      const p = projects.filter(item => item.title == project_name)[0]
+      setProject(p)
+      // const getProjectWithTeam = async (projectId : string | undefined) => {
 
-      const getProjectWithTeam = async (projectId : string | undefined) => {
+      //   if (!projectId) return null;
 
-        if (!projectId) return null;
+      //   const projectRef = doc(db, "projects", projectId);
+      //   const projectSnapshot = await getDoc(projectRef);
 
-        const projectRef = doc(db, "projects", projectId);
-        const projectSnapshot = await getDoc(projectRef);
-
-        if (projectSnapshot.exists()) {
-          const projectData : ProjectType = projectSnapshot.data() as ProjectType;
-          return {
-            ...projectData
-          };
-        }
-        return null;
-      }
-      const myproject : ProjectType | null = await getProjectWithTeam(project_name)
-      setProject(myproject)
+      //   if (projectSnapshot.exists()) {
+      //     const projectData : ProjectType = projectSnapshot.data() as ProjectType;
+      //     return {
+      //       ...projectData
+      //     };
+      //   }
+      //   return null;
+      // }
+      // const myproject : ProjectType | null = await getProjectWithTeam(project_name)
+      // setProject(myproject)
     }, 300)
     return () => clearTimeout(timer)
   }, [])
@@ -90,14 +91,12 @@ function DetailsPage() {
           </div>
           <div className='mt-10'>
             <h1 className='uppercase'>photos</h1>
-            <div className='grid grid-cols-2 mt-4'>
-              <img src="/img.png" alt="" />
-              <img src="/img.png" alt="" />
+            <div className='grid grid-cols-1 mt-4'>
+              <img src="/s3.png" className='border-2' alt="" />
             </div>
-            <div className='grid grid-cols-3'>
-              <img src="/img.png" alt="" />
-              <img src="/img.png" alt="" />
-              <img src="/img.png" alt="" />
+            <div className='grid grid-cols-2 gap-2 mt-2'>
+              <img src="/s2.png" className='w-full h-[150px] border-2' alt="" />
+              <img src="/s1.png" className='w-full h-[150px] border-2' alt="" />
             </div>
           </div>
         </div>
@@ -123,6 +122,9 @@ function Nav() {
             theme?.themeHandler(theme?.theme == 'light' ? 'dark' : 'light')
           }} className='cursor-pointer border-[1px] h-[35px] p-2 rounded-full'>
             <FaMoon />
+          </li>
+          <li  className='cursor-pointer border-[1px] h-[35px] p-2 rounded-full ml-2 flex text-[14px] items-center'>
+            <h1>English</h1>
           </li>
           <li className='ml-4 bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] h-[35px] flex items-center text-white py-1 px-4 rounded-full'>
             <h1 className='capitalize text-[13px]'>resume</h1>
@@ -154,7 +156,8 @@ function Hero() {
 
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, useGLTF } from '@react-three/drei'
-import { SiTailwindcss, SiThreedotjs, SiTypescript } from 'react-icons/si'
+import { SiFirebase, SiTailwindcss, SiThreedotjs, SiTypescript } from 'react-icons/si'
+import { Skeleton, div } from 'three/webgpu'
 
 function Computer() {
   const computer = useGLTF('/setup/scene.gltf')
@@ -190,56 +193,86 @@ function ComputerCanvas() {
   )
 }
 
-import { db } from './firebase.js'
-import { collection, getDocs, doc, getDoc } from 'firebase/firestore'
+// import { db } from './firebase.js'
+// import { collection, getDocs, doc, getDoc } from 'firebase/firestore'
 
 
+function ProjectSkelton() {
+  const theme = useContext(ThemeContext)
+  return (
+    <li  className={`backdrop-blur-none relative border-[.3px] p-2 rounded-sm ${theme?.theme == 'dark' ? "border-white/20" : "border-black/20"}`}>
+        <div className='w-full h-[150px] bg-gray-100'></div>
+        <div className='absolute top-[3px] left-[3px] h-[25px] w-[50px] rounded-sm bg-gray-300 '></div>
+        <div className='p-2'>
+          <div className='bg-gray-100 w-1/2 h-[10px]'></div>
+          <div className='bg-gray-100 w-1/3 h-[15px] mt-2'></div>
+          <div className='bg-gray-100 w-full h-[6px] mt-2'></div>
+          <div className='bg-gray-100 w-full h-[6px] mt-2'></div>
+          <div className='bg-gray-100 w-1/3 h-[6px] mt-2'></div>
+        </div>
+    </li>
+  )
+}
 
 
 function Projects() {
   const theme = useContext(ThemeContext)
   const [pdata, setData] = useState<ProjectType[]>([])
-  const dataCollection = collection(db, "projects")
+  const [isLoading, setIsLoading] = useState<Boolean>(true)
+  // const dataCollection = collection(db, "projects")
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      const get_data = async () => {
-        try {
-          const data = await getDocs(dataCollection)
-          const d = data.docs.map(d => ({...d.data(), id : d.id}))
-          setData(d)
-        } catch (err) {
-          console.log(err)
-        }
-      }
-      get_data()
+      // const get_data = async () => {
+      //   try {
+      //     const data = await getDocs(dataCollection)
+      //     const d : ProjectType[] = data.docs.map(d => ({...d.data(), id : d.id}))
+      //     console.log(d)
+      //     setData(d)
+      //   } catch (err) {
+      //     console.log(err)
+      //   }
+      // }
+      // get_data()
+      setTimeout(() => {
+        setData(projects)
+        setIsLoading(false)
+      }, 250)
     }, 300)
     return () => clearTimeout(timer)
   }, [])
   return (
       <div className='w-[300px] sm:w-full sm:px-6 my-2 ml-[50%] translate-x-[-50%]'>
           <h1 className='my-10 text-center'>⚒ What I'm working on</h1>
-          <ul className='grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4'>
-          {
-            pdata.map((project) => {
-              return (
-                <li key={project.id} className={`backdrop-blur-none relative border-[.3px] p-2 rounded-sm ${theme?.theme == 'dark' ? "border-white/20" : "border-black/20"}`}>
-                  <Link to={project.id}>
-                    <img src={project.img} className='rounded-t-sm h-[150px] w-full' alt="project image" />
-                    <div className='absolute top-[3px] capitalize left-[3px] rounded-sm text-[12px] bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-white px-4 py-1 '>{project.categorie}</div>
-                    <div className='p-2'>
-                      <ul className='flex text-[16px] mb-2'>
-                        {project.tech.map((t, index) => <li key={index} className='mr-2'>{getIcon(t)}</li>)}
-                      </ul>
-                      <h1 className='mb-2'>{project.title}</h1>
-                      <p className='text-[10px]'>{project.description.substring(0, 80)} ...</p>
-                    </div>
-                  </Link>
-                </li>
-              )
-            })
-          }
-          </ul>
+            <ul className='grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4'>
+            {
+              isLoading ? 
+              <>
+                <ProjectSkelton />
+                <ProjectSkelton />
+                <ProjectSkelton />
+                <ProjectSkelton />
+              </>
+              :
+              pdata.map((project) => {
+                return (
+                  <li key={project.id} className={`backdrop-blur-none relative border-[.3px] p-2 rounded-sm ${theme?.theme == 'dark' ? "border-white/20" : "border-black/20"}`}>
+                    <Link to={project.title}>
+                      <img src={project.img} className='rounded-t-sm h-[150px] w-full' alt="project image" />
+                      <div className='absolute top-[3px] capitalize left-[3px] rounded-sm text-[12px] bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-white px-4 py-1 '>{project.categorie}</div>
+                      <div className='p-2'>
+                        <ul className='flex text-[16px] mb-2'>
+                          {project.tech.map((t, index) => <li key={index} className='mr-2'>{getIcon(t)}</li>)}
+                        </ul>
+                        <h1 className='mb-2'>{project.title}</h1>
+                        <p className='text-[10px]'>{project.description.substring(0, 80)} ...</p>
+                      </div>
+                    </Link>
+                  </li>
+                )
+              })
+            }
+            </ul>
         </div>
   )
 }
@@ -308,6 +341,7 @@ function Footer() {
                 <li><SiTypescript /></li>
                 <li><SiTailwindcss /></li>
                 <li><SiThreedotjs /></li>
+                <li><SiFirebase /></li>
               </ul>
             </div>
           </div>
@@ -319,7 +353,9 @@ function Page1() {
   return (
     <div className='max-w-[900px] mx-auto'>
       <Hero />
-      <Projects />
+      <Suspense fallback={<h1 className='w-full h-[100px] bg-red-300'>hello</h1>}>
+        <Projects />
+      </Suspense>
       <Articles />
     </div>
   )
