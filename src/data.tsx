@@ -1,65 +1,33 @@
 import {FaReact, FaPython, FaDocker, FaWordpress, FaInstagram, FaLinkedin, FaTwitter, FaDev, FaGithub} from 'react-icons/fa'
-import {SiNginx, SiMariadb, SiCplusplus, SiC, SiPostgresql, SiTailwindcss} from 'react-icons/si'
+import {SiNginx, SiMariadb, SiCplusplus, SiPostgresql, SiTailwindcss} from 'react-icons/si'
 
-export const projects = [
-    {
-        title : "Ft-trancendence",
-        description : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, aspernatur!",
-        categorie : "web",
-        img : "/pong.jpg",
-        tech : [<FaReact />, <FaPython />, <SiPostgresql />, <SiTailwindcss />],
-    },
-    {
-        title : "Inception",
-        description : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, aspernatur!",
-        categorie : "devops",
-        img : "/inc.jpg",
-        tech : [<FaDocker />, <SiNginx/>, <SiMariadb /> , <FaWordpress />],
-    },
-    {
-        title : "Ft-IRC",
-        description : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, aspernatur!",
-        categorie : "unix",
-        img : "/irc.jpg",
-        tech : [<SiCplusplus />],
-    },
-    {
-        title : "Cube-3D",
-        description : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, aspernatur!",
-        categorie : "graphic",
-        img : "/cube.jpg",
-        tech : [<SiC />],
-    },
-    {
-        title : "Minishell",
-        description : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, aspernatur!",
-        categorie : "unix",
-        img : "/minishell.jpg",
-        tech : [<SiC />],
-    },
-    {
-        title : "Philosophers",
-        description : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, aspernatur!",
-        categorie : "unix",
-        img : "/philo.jpg",
-        tech : [<SiC />],
-    },
-    {
-        title : "push swap",
-        description : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, aspernatur!",
-        categorie : "algorithm",
-        img : "/img.png",
-        tech : [<SiC />],
-    },
-    {
-        title : "so long",
-        description : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, aspernatur!",
-        categorie : "graphic",
-        img : "/img.png",
-        tech : [<SiC />],
-    },
-]
 
+
+export function getIcon(tech : string) {
+    switch (tech) {
+        case "react":
+            return <FaReact />            
+        case "python":
+            return <FaPython />            
+        case "docker":
+            return <FaDocker />            
+        case "wordpress":
+            return <FaWordpress />            
+        case "nginx":
+            return <SiNginx />       
+        case "mariadb":
+            return <SiMariadb />       
+        case "cplusplus":
+            return <SiCplusplus />             
+        case "postgresql":
+            return <SiPostgresql />       
+        case "tailwindcss":
+            return <SiTailwindcss />       
+    
+        default:
+            return tech
+    }
+}
 
 export const infos = {
     address : "Khouribga",
