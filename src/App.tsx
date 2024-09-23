@@ -1,9 +1,9 @@
 
 import {FaMoon, FaPhone, FaMailBulk, FaReact, FaArrowLeft} from 'react-icons/fa'
-import {projects, infos, articles, links} from './data.js'
+import {getIcon, infos, articles, links} from './data.js'
 import { FaLocationDot } from 'react-icons/fa6'
 import ThemeContextProvider, {ThemeContext} from './contexts.js'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider, Outlet, useParams, Link } from 'react-router-dom'
 
 
@@ -16,23 +16,68 @@ const router = createBrowserRouter(
   )
 )
 
+type TeamType = {
+  link : string,
+  img : string
+}
+
+type ProjectType = {
+  id : string,
+  title : string,
+  img : string,
+  categorie: string,
+  description : string
+  team : TeamType[],
+  tech : string[]
+}
+
+
+
+
 function DetailsPage() {
   const {project_name} = useParams()
-  const project = projects.filter(item => item.title == project_name)[0]
+  const [project , setProject] = useState<ProjectType | null>(null)
+
+  useEffect(() => {
+    const timer = setTimeout(async () => {
+
+      const getProjectWithTeam = async (projectId : string | undefined) => {
+
+        if (!projectId) return null;
+
+        const projectRef = doc(db, "projects", projectId);
+        const projectSnapshot = await getDoc(projectRef);
+
+        if (projectSnapshot.exists()) {
+          const projectData : ProjectType = projectSnapshot.data() as ProjectType;
+          return {
+            ...projectData
+          };
+        }
+        return null;
+      }
+      const myproject : ProjectType | null = await getProjectWithTeam(project_name)
+      setProject(myproject)
+    }, 300)
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
     <div className='w-full h-[83vh] max-w-[800px] mx-auto p-2 mt-10'>
-      <div className='h-[50px]'>
-        <FaArrowLeft />
-      </div>
+      <Link to="/">
+        <div className='h-[50px]'>
+          <FaArrowLeft />
+        </div>
+      </Link>
       <div className='w-full h-full flex'>
         <div className='w-1/2 h-full relative'>
-          <img src={project.img} className='w-full rounded-xl' alt="" />
-          <h1 className='bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] w-[70px] h-[30px] text-center rounded absolute top-[-6px] left-[-6px] '>{project.categorie}</h1>
+          <img src={project?.img} className='w-full rounded-xl' alt="" />
+          <h1 className='bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] w-[70px] h-[30px] text-center rounded absolute top-[-6px] left-[-6px] '>{project?.categorie}</h1>
         </div>
         <div className='w-1/2 ml-4'>
-          <h1 className='text-2xl'>{project.title}</h1>
-          <p className='mt-4 text-[12px]'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum nesciunt nobis officia at quisquam eaque voluptatum non illum corrupti ipsa et vel quas autem, sequi rem nam voluptatibus deleniti fuga vitae fugit quasi, beatae suscipit natus. Doloribus, fuga inventore eum adipisci accusamus tempora magni commodi impedit quam earum nisi obcaecati deserunt veritatis sunt deleniti eos ipsa consequatur nobis rerum dicta totam sed, ut neque. Eos, amet! In libero aperiam laudantium, facere pariatur ex similique. Illo, similique numquam in eos itaque commodi repudiandae esse laudantium blanditiis, nostrum tenetur obcaecati ut minima reiciendis optio repellendus tempore iste ducimus exercitationem. Minima, explicabo necessitatibus.</p>
-          <ul className='flex mt-4'>{project.tech.map((item, index) => <li className='mr-2' key={index}>{item}</li>)}</ul>
+          <h1 className='text-2xl'>{project?.title}</h1>
+          <p className='mt-4 text-[12px]'>{project?.description}</p>
+          <ul className='flex mt-4'>{project?.tech.map((item, index) => <li className='mr-2' key={index}>{getIcon(item)}</li>)}</ul>
           <ul className='mt-6 flex'>
             <li className='rounded mr-2 bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] w-[70px] h-[30px] text-center'>github</li>
             <li className='bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] w-[70px] h-[30px] text-center rounded'>live</li>
@@ -40,11 +85,7 @@ function DetailsPage() {
           <div className='mt-10'>
             <h1 className='uppercase'>team</h1>
             <ul className='mt-4 flex'>
-              <li><img src="/aamhamdi.jpg" className='mr-2 w-[50px] h-[50px] rounded-full' alt="" /></li>
-              <li><img src="/img.png" className='mr-2 w-[50px] h-[50px] rounded-full' alt="" /></li>
-              <li><img src="/img.png" className='mr-2 w-[50px] h-[50px] rounded-full' alt="" /></li>
-              <li><img src="/img.png" className='mr-2 w-[50px] h-[50px] rounded-full' alt="" /></li>
-              <li><img src="/img.png" className='mr-2 w-[50px] h-[50px] rounded-full' alt="" /></li>
+              {project?.team?.map((t, index) => <li key={index}><img src={t.img} className='mr-2 w-[50px] h-[50px] rounded-full' alt="" /></li>)}
             </ul>
           </div>
           <div className='mt-10'>
@@ -149,25 +190,49 @@ function ComputerCanvas() {
   )
 }
 
+import { db } from './firebase.js'
+import { collection, getDocs, doc, getDoc } from 'firebase/firestore'
+
+
+
+
 function Projects() {
   const theme = useContext(ThemeContext)
+  const [pdata, setData] = useState<ProjectType[]>([])
+  const dataCollection = collection(db, "projects")
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const get_data = async () => {
+        try {
+          const data = await getDocs(dataCollection)
+          const d = data.docs.map(d => ({...d.data(), id : d.id}))
+          setData(d)
+        } catch (err) {
+          console.log(err)
+        }
+      }
+      get_data()
+    }, 300)
+    return () => clearTimeout(timer)
+  }, [])
   return (
       <div className='w-[300px] sm:w-full sm:px-6 my-2 ml-[50%] translate-x-[-50%]'>
           <h1 className='my-10 text-center'>⚒ What I'm working on</h1>
           <ul className='grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4'>
           {
-            projects.map((project, index) => {
+            pdata.map((project) => {
               return (
-                <li key={index} className={`backdrop-blur-none relative border-[.3px] p-2 rounded-sm ${theme?.theme == 'dark' ? "border-white/20" : "border-black/20"}`}>
-                  <Link to={project.title}>
-                    <img src={project.img} className='rounded-t-sm h-[150px] w-full' alt="" />
+                <li key={project.id} className={`backdrop-blur-none relative border-[.3px] p-2 rounded-sm ${theme?.theme == 'dark' ? "border-white/20" : "border-black/20"}`}>
+                  <Link to={project.id}>
+                    <img src={project.img} className='rounded-t-sm h-[150px] w-full' alt="project image" />
                     <div className='absolute top-[3px] capitalize left-[3px] rounded-sm text-[12px] bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-white px-4 py-1 '>{project.categorie}</div>
                     <div className='p-2'>
                       <ul className='flex text-[16px] mb-2'>
-                        {project.tech.map((t, index) => <li key={index} className='mr-2'>{t}</li>)}
+                        {project.tech.map((t, index) => <li key={index} className='mr-2'>{getIcon(t)}</li>)}
                       </ul>
                       <h1 className='mb-2'>{project.title}</h1>
-                      <p className='text-[10px]'>{project.description}</p>
+                      <p className='text-[10px]'>{project.description.substring(0, 80)} ...</p>
                     </div>
                   </Link>
                 </li>
@@ -195,7 +260,7 @@ function Articles() {
                       {art.tags.map((t, index) => <li key={index} className='mr-2'>#{t}</li>)}
                     </ul>
                     <h1 className='mb-2'>{art.title}</h1>
-                    <p className='text-[10px] truncate'>{art.desc}</p>
+                    <p className='text-[10px] '>{art.desc.substring(0, 80)} ...</p>
                   </div>
                 </li>
               )
