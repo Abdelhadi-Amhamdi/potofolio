@@ -1,6 +1,7 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider, Outlet } from 'react-router-dom'
 import ThemeContextProvider, {ThemeContext} from './contexts.js'
 import {useContext } from 'react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import Nav from './components/Nav'
 import Hero from './components/Hero'
@@ -9,6 +10,7 @@ import ProjectDetails from './components/ProjectDetails.js'
 import Articles from './components/Articles.js'
 import Footer from './components/Footer.js'
 
+const queryClient = new QueryClient()
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -40,13 +42,15 @@ function Main() {
   )
 }
 
-function App() {
 
+function App() {
   return (
     <div className='p-0 m-0 box-border overflow-hidden w-[100vw] h-[100vh]'>
-      <ThemeContextProvider>
-        <RouterProvider router={router} />
-      </ThemeContextProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeContextProvider>
+          <RouterProvider router={router} />
+        </ThemeContextProvider>
+      </QueryClientProvider>
     </div>
   )
 }

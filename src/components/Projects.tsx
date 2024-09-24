@@ -1,10 +1,11 @@
 import { collection, getDocs } from "firebase/firestore"
-import { useContext, useEffect, useState } from "react"
+import { useContext } from "react"
 import { db } from "../firebase"
 import { Link } from "react-router-dom"
 import { getIcon } from "../data"
 import { ThemeContext } from "../contexts"
 import { ProjectType } from "../types"
+
 
 
 function ProjectSkelton() {
@@ -25,7 +26,7 @@ function ProjectSkelton() {
 }
 
 
-function ProjectCard({project}) {
+function ProjectCard({project} : {project : ProjectType}) {
     const theme = useContext(ThemeContext)
     return (
         <li  className={`backdrop-blur-none relative border-[.3px] p-2 rounded-sm ${theme?.theme == 'dark' ? "border-white/20" : "border-black/20"}`}>
@@ -55,39 +56,37 @@ function ProjectsPlaceHolder() {
     )
 }
 
+import {useQuery} from '@tanstack/react-query'
 
 export default function Projects() {
     
-    const [pdata, setData] = useState<ProjectType[]>([])
-    const [isLoading, setIsLoading] = useState<Boolean>(true)
     const dataCollection = collection(db, "projects")
-  
-    useEffect(() => {
-      const timer = setTimeout(() => {
-        const get_data = async () => {
-          try {
-            const data = await getDocs(dataCollection)
-            const d : ProjectType[] = data.docs.map(d => ({...d.data(), id : d.id}))
-            setData(d)
-            setIsLoading(false)
-          } catch (err) {
-            console.log(err)
-          }
-        }
-        get_data()
-      }, 300)
-      return () => clearTimeout(timer)
-    }, [])
+    
+    const get_data = async () => {
+      try {
+        const data = await getDocs(dataCollection)
+        return data.docs.map(d => ({...d.data(), id : d.id}))
+      } catch (err) {
+        console.log(err)
+      }
+    }
+
+    const query = useQuery({
+      queryKey : ['projects'],
+      queryFn : get_data,
+      staleTime : (1000 * 60) * 10
+    })
+
     return (
         <div className='w-[300px] sm:w-full sm:px-6 my-2 ml-[50%] translate-x-[-50%]'>
             <h1 className='my-10 text-center'>⚒ What I'm working on</h1>
               <ul className='grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4'>
               {
-                isLoading 
+                query.isFetching 
                 ? 
                 <ProjectsPlaceHolder />
                 :
-                pdata.map((project) => <ProjectCard key={project.id} project={project} />)
+                query.data?.map((project) => <ProjectCard key={project.id} project={project} />)
               }
               </ul>
           </div>

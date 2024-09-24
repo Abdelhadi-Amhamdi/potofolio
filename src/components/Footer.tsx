@@ -3,7 +3,7 @@ import { ThemeContext } from "../contexts"
 import { FaLocationDot, FaPhone } from "react-icons/fa6"
 import { infos } from "../data"
 import { FaMailBulk, FaReact } from "react-icons/fa"
-import { SiFirebase, SiTailwindcss, SiThreedotjs, SiTypescript } from "react-icons/si"
+import { SiFirebase, SiReactquery, SiTailwindcss, SiThreedotjs, SiTypescript } from "react-icons/si"
 
 
 export default function Footer() {
@@ -44,6 +44,7 @@ export default function Footer() {
                   <li><SiTailwindcss /></li>
                   <li><SiThreedotjs /></li>
                   <li><SiFirebase /></li>
+                  <li><SiReactquery /></li>
                 </ul>
               </div>
             </div>
