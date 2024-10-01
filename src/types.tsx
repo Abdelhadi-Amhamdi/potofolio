@@ -12,5 +12,6 @@ export type ProjectType = {
     categorie: string,
     description : string
     team : TeamType[],
-    tech : string[]
+    tech : string[],
+    photos : string[]
 }

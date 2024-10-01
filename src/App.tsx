@@ -23,7 +23,7 @@ const router = createBrowserRouter(
 
 function MainPage() {
   return (
-    <div className='max-w-[900px] mx-auto'>
+    <div className='max-w-[1000px] mx-auto'>
       <Hero />
       <Projects />
       <Articles />

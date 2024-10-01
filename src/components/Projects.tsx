@@ -1,5 +1,5 @@
 import { collection, getDocs } from "firebase/firestore"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { db } from "../firebase"
 import { Link } from "react-router-dom"
 import { getIcon } from "../data"
@@ -11,7 +11,7 @@ import { ProjectType } from "../types"
 function ProjectSkelton() {
     const theme = useContext(ThemeContext)
     return (
-      <li  className={`backdrop-blur-none relative border-[.3px] p-2 rounded-sm ${theme?.theme == 'dark' ? "border-white/20" : "border-black/20"}`}>
+      <li  className={`animate-pulse backdrop-blur-none relative border-[.3px] p-2 rounded-sm ${theme?.theme == 'dark' ? "border-white/20" : "border-black/20"}`}>
           <div className='w-full h-[150px] bg-gray-100'></div>
           <div className='absolute top-[3px] left-[3px] h-[25px] w-[50px] rounded-sm bg-gray-300 '></div>
           <div className='p-2'>
@@ -25,23 +25,30 @@ function ProjectSkelton() {
     )
 }
 
-
-function ProjectCard({project} : {project : ProjectType}) {
-    const theme = useContext(ThemeContext)
+function Card({project} : {project : ProjectType}) {
     return (
-        <li  className={`backdrop-blur-none relative border-[.3px] p-2 rounded-sm ${theme?.theme == 'dark' ? "border-white/20" : "border-black/20"}`}>
-            <Link to={project.id}>
-            <img src={project.img} className='rounded-t-sm h-[150px] w-full' alt="project image" />
-            <div className='absolute top-[3px] capitalize left-[3px] rounded-sm text-[12px] bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-white px-4 py-1 '>{project.categorie}</div>
-            <div className='p-2'>
-                <ul className='flex text-[16px] mb-2'>
-                {project.tech.map((t, index) => <li key={index} className='mr-2'>{getIcon(t)}</li>)}
-                </ul>
-                <h1 className='mb-2'>{project.title}</h1>
-                <p className='text-[10px]'>{project.description.substring(0, 80)} ...</p>
+      <div className="">
+        <Link to={project.id}>
+          <div className="w-full min-w-[200px] relative">
+            <img src={project.img} className="h-[180px] rounded w-full" alt="" />
+            <div className="absolute top-[-10px] left-[-10px]">
+              <h2 className="bg-primary text-white  text-sm flex justify-center items-center w-[80px] h-[30px] rounded">
+                {project.categorie}
+              </h2>
             </div>
-            </Link>
-        </li>
+          </div>
+          <div className="mt-4">
+            <div className="flex items-center mb-2 h-[30px]">
+              <p className="mr-4 text-[8pt]">Mar 16, 2020</p>
+              <ul className='flex text-[12pt]'>
+                {project.tech.map((t, index) => <li key={index} className='mr-2'>{getIcon(t)}</li>)}
+              </ul>
+            </div>
+            <h1 className="text-[16pt] font-bold capitalize">{project.title}</h1>
+            <p className="text-[8pt] mt-2">{project.description.substring(0, 200).replace(/\\n/g, " ")} ...</p>
+          </div>
+        </Link>
+      </div>
     )
 }
 
@@ -57,10 +64,12 @@ function ProjectsPlaceHolder() {
 }
 
 import {useQuery} from '@tanstack/react-query'
+import { FaAngleDoubleDown, FaAngleDoubleUp } from "react-icons/fa"
 
 export default function Projects() {
     
     const dataCollection = collection(db, "projects")
+    const [seeMore, setSeeMore] = useState<boolean>(false)
     
     const get_data = async () => {
       try {
@@ -79,16 +88,28 @@ export default function Projects() {
 
     return (
         <div className='w-[300px] sm:w-full sm:px-6 my-2 ml-[50%] translate-x-[-50%]'>
-            <h1 className='my-10 text-center'>⚒ What I'm working on</h1>
-              <ul className='grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4'>
+            <h1 className='my-10 text-center'>⚒ From The Gallery</h1>
+              <ul className='grid grid-cols-1 gap-16 sm:grid-cols-2 md:grid-cols-3'>
               {
                 query.isFetching 
                 ? 
                 <ProjectsPlaceHolder />
                 :
-                query.data?.map((project) => <ProjectCard key={project.id} project={project} />)
+                query.data?.map((project, index) => {
+                  if ((!seeMore && index < 6) || seeMore) {
+                    return (
+                      <Card key={project.id} project={project} />
+                    )
+                  }
+                })
               }
               </ul>
+              <div className="flex justify-center my-4 py-4">
+                <button onClick={() => setSeeMore(prev => !prev)} className="bg-primary w-[120px] h-[38px] text-white rounded-full text-[10pt] flex items-center justify-center">
+                  <h1>see {seeMore ? "less" : "more"}</h1>
+                  {!seeMore ? <FaAngleDoubleDown className="ml-2" /> : <FaAngleDoubleUp className="ml-2" />}
+                </button>
+              </div>
           </div>
     )
 }

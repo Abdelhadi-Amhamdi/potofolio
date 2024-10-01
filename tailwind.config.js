@@ -6,10 +6,8 @@ export default {
   ],
   theme: {
     extend: {
-      colors : {
-        "primary" : "#009688",
-      },
       backgroundImage : {
+        "primary" : 'linear-gradient(to right, #8A2387, #E94057 , #F27121)',
         "ascii" : 'url("/ascii.svg")'
       }
     },

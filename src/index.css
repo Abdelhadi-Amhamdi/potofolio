@@ -14,3 +14,19 @@
 ::-webkit-scrollbar-thumb {
     background: #888;
 }
+
+
+.svg-main {
+    animation: b 4s infinite;
+}
+
+@keyframes b {
+    0%, 100% {
+      transform: translateY(-15%);
+      animation-timing-function: cubic-bezier(.49,.47,.54,.59);
+    }
+    50% {
+      transform: translateY(0);
+      animation-timing-function: cubic-bezier(.49,.47,.54,.59);
+    }
+}
