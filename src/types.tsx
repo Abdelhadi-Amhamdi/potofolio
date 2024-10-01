@@ -13,5 +13,6 @@ export type ProjectType = {
     description : string
     team : TeamType[],
     tech : string[],
-    photos : string[]
+    photos : string[],
+    time : string,
 }

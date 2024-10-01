@@ -3,18 +3,21 @@ import { ThemeContext } from "../contexts"
 import { SiReaddotcv } from "react-icons/si"
 import { TbLanguage } from "react-icons/tb"
 import { PiMoonStarsLight } from "react-icons/pi"
+import { Link } from 'react-router-dom'
 
 
 export default function Nav() {
     const theme = useContext(ThemeContext)
     return (
         <nav className={`flex justify-between w-full p-4 sticky top-0 left-0 backdrop-blur-xl z-20`}>
-          <h1 className='text-sm'>
-            <span className='text-2xl bg-primary text-transparent bg-clip-text'>A
-              <span className='text-sm'>2.</span>
-            </span>
-            M
-          </h1>
+          <Link to="/">
+            <h1 className='text-sm'>
+              <span className='text-2xl bg-primary text-transparent bg-clip-text'>A
+                <span className='text-sm'>2.</span>
+              </span>
+              M
+            </h1>
+          </Link>
           <ul className='flex items-center'>
             <li onClick={() => {
               theme?.themeHandler(theme?.theme == 'light' ? 'dark' : 'light')
@@ -30,8 +33,8 @@ export default function Nav() {
                 <h1 className='capitalize text-[13px] flex items-center'>resume <SiReaddotcv className="ml-2" /></h1>
               </a>
               <div className="absolute top-[-3px] left-[-3px] flex h-[14px] w-[14px]">
-                <span className="bg-orange-600 w-full h-full rounded-full absolute animate-ping"></span>
-                <span className="bg-orange-500 w-full h-full rounded-full"></span>
+                <span className="bg-red-600 w-full h-full rounded-full absolute animate-ping"></span>
+                <span className="bg-red-500 w-full h-full rounded-full"></span>
               </div>
             </li>
           </ul>

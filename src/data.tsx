@@ -1,4 +1,4 @@
-import {FaReact, FaPython, FaDocker, FaWordpress, FaInstagram, FaLinkedin, FaTwitter, FaDev, FaGithub} from 'react-icons/fa'
+import {FaReact, FaPython, FaDocker, FaWordpress, FaLinkedin, FaTwitter, FaDev, FaGithub} from 'react-icons/fa'
 import {SiNginx, SiMariadb, SiCplusplus, SiPostgresql, SiTailwindcss} from 'react-icons/si'
 
 export function getIcon(tech : string) {
@@ -37,10 +37,6 @@ export const infos = {
 }
 
 export const links  = [
-    {
-        icon : <FaInstagram />,
-        link : "https://www.instagram.com/__ab__am/"
-    },
     {
         icon : <FaLinkedin />,
         link : "https://www.linkedin.com/in/abdelhadi-amhamdi-a680a5209/"

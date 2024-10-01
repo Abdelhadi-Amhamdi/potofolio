@@ -14,7 +14,7 @@ export const ThemeContext = createContext<null | StateContextType>(null)
 export default function ThemeContextProvider({children} : contextProviderProps) {
     let t : string | null = window.localStorage.getItem("theme")
     if (!t) {
-        t = "dark"
+        t = "light"
         window.localStorage.setItem("theme", t)
     }
     const [theme, setTheme] = useState<string>(t)

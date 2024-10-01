@@ -1,5 +1,5 @@
-import { collection, getDocs } from "firebase/firestore"
-import { useContext, useState } from "react"
+import { collection, getDocs, orderBy, query } from "firebase/firestore"
+import { useContext, useEffect, useState } from "react"
 import { db } from "../firebase"
 import { Link } from "react-router-dom"
 import { getIcon } from "../data"
@@ -15,17 +15,34 @@ function ProjectSkelton() {
           <div className='w-full h-[150px] bg-gray-100'></div>
           <div className='absolute top-[3px] left-[3px] h-[25px] w-[50px] rounded-sm bg-gray-300 '></div>
           <div className='p-2'>
-            <div className='bg-gray-100 w-1/2 h-[10px]'></div>
-            <div className='bg-gray-100 w-1/3 h-[15px] mt-2'></div>
+            <div className='bg-gray-100 w-1/2 h-[15px]'></div>
+            <div className='bg-gray-100 w-1/3 h-[35px] mt-2'></div>
             <div className='bg-gray-100 w-full h-[6px] mt-2'></div>
             <div className='bg-gray-100 w-full h-[6px] mt-2'></div>
+            <div className='bg-gray-100 w-2/3 h-[6px] mt-2'></div>
             <div className='bg-gray-100 w-1/3 h-[6px] mt-2'></div>
           </div>
       </li>
     )
 }
 
+type DateType = {
+  month : string,
+  day : string,
+  year : string
+}
+
 function Card({project} : {project : ProjectType}) {
+
+    const [date, setDate] = useState<DateType | null>(null)
+    const month_names : string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    useEffect(() => {
+      if (project.time) {
+        let [day, month, year] = project.time.split("-")
+        setDate({month : month_names[Number(month) - 1] || "", day, year})
+      }
+    }, [])
+
     return (
       <div className="">
         <Link to={project.id}>
@@ -39,7 +56,7 @@ function Card({project} : {project : ProjectType}) {
           </div>
           <div className="mt-4">
             <div className="flex items-center mb-2 h-[30px]">
-              <p className="mr-4 text-[8pt]">Mar 16, 2020</p>
+              <p className="mr-4 text-[8pt] capitalize">{date?.month} {date?.day}, {date?.year}</p>
               <ul className='flex text-[12pt]'>
                 {project.tech.map((t, index) => <li key={index} className='mr-2'>{getIcon(t)}</li>)}
               </ul>
@@ -59,6 +76,8 @@ function ProjectsPlaceHolder() {
             <ProjectSkelton />
             <ProjectSkelton />
             <ProjectSkelton />
+            <ProjectSkelton />
+            <ProjectSkelton />
         </>
     )
 }
@@ -73,7 +92,7 @@ export default function Projects() {
     
     const get_data = async () : Promise<ProjectType[]> =>  {
       try {
-        const data = await getDocs(dataCollection)
+        const data = await getDocs(query(dataCollection))
         return data.docs.map(d => ({...d.data(), id : d.id})) as ProjectType[]
       } catch (err) {
         console.log(err)
@@ -81,10 +100,10 @@ export default function Projects() {
       }
     }
 
-    const query = useQuery({
+    const res = useQuery<ProjectType[], Error>({
       queryKey : ['projects'],
       queryFn : get_data,
-      staleTime : (1000 * 60) * 10
+      staleTime : 1000 * 60 * 10
     })
 
     return (
@@ -92,11 +111,11 @@ export default function Projects() {
             <h1 className='my-10 text-center'>⚒ From The Gallery</h1>
               <ul className='grid grid-cols-1 gap-16 sm:grid-cols-2 md:grid-cols-3'>
               {
-                query.isFetching 
+                res.isFetching 
                 ? 
                 <ProjectsPlaceHolder />
                 :
-                query.data?.map((project : ProjectType, index) => {
+                res.data?.map((project : ProjectType, index) => {
                   if ((!seeMore && index < 6) || seeMore) {
                     return (
                       <Card key={project.id} project={project} />
