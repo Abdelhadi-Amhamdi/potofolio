@@ -71,12 +71,13 @@ export default function Projects() {
     const dataCollection = collection(db, "projects")
     const [seeMore, setSeeMore] = useState<boolean>(false)
     
-    const get_data = async () => {
+    const get_data = async () : Promise<ProjectType[]> =>  {
       try {
         const data = await getDocs(dataCollection)
-        return data.docs.map(d => ({...d.data(), id : d.id}))
+        return data.docs.map(d => ({...d.data(), id : d.id})) as ProjectType[]
       } catch (err) {
         console.log(err)
+        return []
       }
     }
 
@@ -95,7 +96,7 @@ export default function Projects() {
                 ? 
                 <ProjectsPlaceHolder />
                 :
-                query.data?.map((project, index) => {
+                query.data?.map((project : ProjectType, index) => {
                   if ((!seeMore && index < 6) || seeMore) {
                     return (
                       <Card key={project.id} project={project} />
