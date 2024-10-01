@@ -1,5 +1,4 @@
 import { links, infos } from "../data";
-// import ComputerCanvas from "./Computer";
 import Img from "./Img";
 
 
