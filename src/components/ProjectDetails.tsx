@@ -46,18 +46,13 @@ export default function ProjectDetails() {
 
 
     return (
-      <div className='w-full h-fit min-h-[83vh] max-w-[1000px] mx-auto p-2 mt-10 relative'>
-
-
-
-       
-
-        <div className='w-full h-full grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-[500px] lg:max-w-[1000px] mx-auto px-4'>
+      <div className='w-full h-fit min-h-[83vh] max-w-[500px] lg:max-w-[1000px] mx-auto  p-4 mt-10 relative'>
         <Link to="/" className="">
           <div className='h-[50px]'>
             <FaArrowLeft />
           </div>
         </Link>
+        <div className='w-full h-full grid grid-cols-1 lg:grid-cols-2 gap-10'>
           <div className='h-full relative '>
             <img src={data?.img} className='w-full rounded-xl' alt="" />
             <h1 className='bg-primary text-white w-[70px] h-[30px] text-center rounded absolute top-[-6px] left-[-6px] '>{data?.categorie}</h1>
