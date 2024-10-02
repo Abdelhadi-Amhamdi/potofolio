@@ -1,15 +1,15 @@
 import { useContext } from "react"
 import { ThemeContext } from "../contexts"
 import { FaLocationDot, FaPhone } from "react-icons/fa6"
-import { infos } from "../data"
+import { eninfos as infos, frInfos } from "../data"
 import { FaMailBulk, FaReact } from "react-icons/fa"
 import { SiFirebase, SiReactquery, SiTailwindcss, SiTypescript } from "react-icons/si"
 
 
 export default function Footer() {
-    const theme = useContext(ThemeContext)
+    const {theme, lang} = useContext(ThemeContext) || {}
     return (
-          <footer className={`w-full p-2 backdrop-blur-sm mt-10 py-4  flex items-center ${theme?.theme == 'dark' ? "bg-white/10" : "bg-black/90 text-white"}`}>
+          <footer className={`w-full p-2 backdrop-blur-sm mt-10 py-4  flex items-center ${theme == 'dark' ? "bg-white/10" : "bg-black/90 text-white"}`}>
             <div className='p-2 w-1/2 h-full'>
               <ul className='text-[10px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
                 <li className='flex items-center'>
@@ -37,7 +37,7 @@ export default function Footer() {
             </div>
             <div className='flex justify-center h-full w-1/2'>
               <div className=''>
-                <h1 className='capitalize text-[14px]'>made with ❤️ using</h1>
+                <h1 className='capitalize text-[14px]'>{lang == 'en' ? infos.footer : frInfos.footer}</h1>
                 <ul className='flex mt-4 justify-evenly'>
                   <li><FaReact /></li>
                   <li><SiTypescript /></li>

@@ -84,11 +84,13 @@ function ProjectsPlaceHolder() {
 
 import {useQuery} from '@tanstack/react-query'
 import { FaAngleDoubleDown, FaAngleDoubleUp } from "react-icons/fa"
+import {eninfos, frInfos} from '../data'
 
 export default function Projects() {
     
     const dataCollection = collection(db, "projects")
     const [seeMore, setSeeMore] = useState<boolean>(false)
+    const {lang} = useContext(ThemeContext) || {}
     
     const get_data = async () : Promise<ProjectType[]> =>  {
       try {
@@ -108,7 +110,7 @@ export default function Projects() {
 
     return (
         <div className='w-[300px] sm:w-full sm:px-6 my-2 ml-[50%] translate-x-[-50%]'>
-            <h1 className='my-10 text-center'>⚒ From The Gallery</h1>
+            <h1 className='my-10 text-center capitalize'>⚒ {lang == 'en' ? eninfos.ptitle : frInfos.ptitle}</h1>
               <ul className='grid grid-cols-1 gap-16 sm:grid-cols-2 md:grid-cols-3'>
               {
                 res.isFetching 
@@ -126,7 +128,7 @@ export default function Projects() {
               </ul>
               <div className="flex justify-center my-4 py-4">
                 <button onClick={() => setSeeMore(prev => !prev)} className="bg-primary w-[120px] h-[38px] text-white rounded-full text-[10pt] flex items-center justify-center">
-                  <h1>see {seeMore ? "less" : "more"}</h1>
+                  <h1>{lang == 'en' ? (!seeMore ? eninfos.more : eninfos.less) : (!seeMore ? frInfos.more: frInfos.less)}</h1>
                   {!seeMore ? <FaAngleDoubleDown className="ml-2" /> : <FaAngleDoubleUp className="ml-2" />}
                 </button>
               </div>

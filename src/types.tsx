@@ -4,6 +4,10 @@ export type TeamType = {
     link : string,
     img : string
 }
+type PLink = {
+    github : string,
+    live ? : string
+}
 
 export type ProjectType = {
     id : string,
@@ -15,4 +19,5 @@ export type ProjectType = {
     tech : string[],
     photos : string[],
     time : string,
+    links : PLink
 }

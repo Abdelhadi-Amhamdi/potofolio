@@ -2,14 +2,17 @@ import { Link, useParams } from "react-router-dom"
 import { ProjectType } from "../types"
 import { doc, getDoc } from "firebase/firestore"
 import { db } from "../firebase"
-import { FaArrowLeft } from "react-icons/fa"
+import { FaArrowLeft, FaGithub } from "react-icons/fa"
 import { getIcon } from "../data"
 import { useQuery } from "@tanstack/react-query"
-import { useEffect, useRef } from "react"
+import { useContext, useEffect, useRef } from "react"
+import { eninfos, frInfos } from "../data"
+import { ThemeContext } from "../contexts"
 
 
 export default function ProjectDetails() {
   const {project_name} = useParams()
+  const {lang} = useContext(ThemeContext) || {}
   const getProjectWithTeam = async (projectId : string | undefined) => {
 
       if (!projectId) return null;
@@ -25,6 +28,7 @@ export default function ProjectDetails() {
       }
       return null;
     }
+
 
 
     const {data} = useQuery({
@@ -62,11 +66,17 @@ export default function ProjectDetails() {
             <textarea ref={textRef} readOnly className={`mt-4 text-[12px] resize-none outline-none leading-6 bg-transparent w-full`} value={data?.description?.replace(/\\n/g, "\r\n")}></textarea>
             <ul className='flex mt-4'>{data?.tech.map((item, index) => <li className='mr-2' key={index}>{getIcon(item)}</li>)}</ul>
             <ul className='mt-6 flex'>
-              <li className='rounded mr-2 bg-primary text-white w-[70px] h-[30px] text-center'>github</li>
-              <li className='bg-primary text-white w-[70px] h-[30px] text-center rounded'>live</li>
+              
+              <li className='rounded mr-2 bg-primary text-white px-2 h-[30px] flex items-center'>
+                <a target="__blank" href={data?.links?.github} className="flex items-center">
+                  <span className="mr-2 capitalize"> github </span>
+                  <FaGithub/>
+                </a>
+              </li>
+              {/* <li className='bg-primary text-white w-[70px] h-[30px] text-center rounded'>live</li> */}
             </ul>
             <div className='mt-10'>
-              <h1 className='capitalize text-[14pt]'>meet the team</h1>
+              <h1 className='capitalize text-[14pt]'>{lang == 'en' ? eninfos.ttitle : frInfos.ttile}</h1>
               <ul className='mt-4 flex'>
                 {data?.team?.map((t, index) => <li key={index}><img src={t.img} className='mr-4 w-[40px] h-[40px] rounded-full' alt="" /></li>)}
               </ul>

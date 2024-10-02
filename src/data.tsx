@@ -27,13 +27,30 @@ export function getIcon(tech : string) {
     }
 }
 
-export const infos = {
-    endesc : "I'm a passionate computer science student with a deep interest in software development, web technologies, and problem-solving. I'm always eager to learn new things and apply my knowledge to build efficient and scalable solutions.",
-    frdesc : "Je suis un étudiant passionné en informatique avec un vif intérêt pour le développement de logiciels, les technologies web et la résolution de problèmes. J'ai toujours envie d'apprendre de nouvelles choses et d'appliquer mes connaissances pour construire des solutions efficaces et évolutives.",
+export const frInfos = {
+    greeting : 'salut, je suis',
+    desc : "Je suis un étudiant passionné en informatique avec un vif intérêt pour le développement de logiciels, les technologies web et la résolution de problèmes. J'ai toujours envie d'apprendre de nouvelles choses et d'appliquer mes connaissances pour construire des solutions efficaces et évolutives.",
+    ptitle : 'De la galerie',
+    atitle : 'mes articles',
+    ttile : "Rencontrez l'équipe",
+    more : 'voir plus',
+    less : 'voir moins',
+    footer : "Fabriqué avec ❤️ en utilisant"
+}
+
+export const eninfos = {
+    greeting : "Hi, I'm",
+    desc : "I'm a passionate computer science student with a deep interest in software development, web technologies, and problem-solving. I'm always eager to learn new things and apply my knowledge to build efficient and scalable solutions.",
     address : "Khouribga",
     code : "25000, el massira",
     phone : "+2126 90 73 14 52",
     email : "aamhamdi943@gmail.com",
+    ptitle : 'From The Gallery',
+    atitle : 'My Articles',
+    ttitle : 'Meet The Team',
+    more : 'see more',
+    less : 'see less',
+    footer : 'made with ❤️ using'
 }
 
 export const links  = [
