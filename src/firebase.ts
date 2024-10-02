@@ -3,13 +3,13 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore" 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAEY_uZjXQq38HnmoUYhpc5GRDVjTabko4",
-  authDomain: "portofolio-f24eb.firebaseapp.com",
-  projectId: "portofolio-f24eb",
-  storageBucket: "portofolio-f24eb.appspot.com",
-  messagingSenderId: "833163451862",
-  appId: "1:833163451862:web:d4d618845d4fa0ebded877",
-  measurementId: "G-PVRX43C975"
+  apiKey: import.meta.env.VITE_APIKEY,
+  authDomain: import.meta.env.VITE_DOMAIN,
+  projectId: import.meta.env.VITE_ID,
+  storageBucket: import.meta.env.VITE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_SENDERID,
+  appId: import.meta.env.VITE_APPID,
+  measurementId: import.meta.env.VITE_MEASUREMENTID
 };
 
 

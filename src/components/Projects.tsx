@@ -47,7 +47,7 @@ function Card({project} : {project : ProjectType}) {
       <div className="">
         <Link to={project.id}>
           <div className="w-full min-w-[200px] relative">
-            <img src={project.img} className="h-[260px] rounded w-full" alt="" />
+            <img src={project.img} className="h-[240px] rounded w-full" alt="" />
             <div className="absolute top-[-10px] left-[-10px]">
               <h2 className="bg-primary text-white  text-sm flex justify-center items-center w-[80px] h-[30px] rounded">
                 {project.categorie}

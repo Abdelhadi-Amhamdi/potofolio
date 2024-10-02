@@ -44,29 +44,20 @@ export default function ProjectDetails() {
       return () => clearTimeout(timer)
     }, [data])
 
-    const [showImg, setShowImg] = useState<string | null>(null)
 
     return (
       <div className='w-full h-fit min-h-[83vh] max-w-[1000px] mx-auto p-2 mt-10 relative'>
-        <Link to="/">
+
+
+
+       
+
+        <div className='w-full h-full grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-[500px] lg:max-w-[1000px] mx-auto px-4'>
+        <Link to="/" className="">
           <div className='h-[50px]'>
             <FaArrowLeft />
           </div>
         </Link>
-
-
-
-        {
-          showImg && 
-          <div className="bg-gray-700/50 backdrop-blur-lg  max-w-[90vw] rounded h-fit fixed left-[50%] top-[50%] translate-x-[-50%] z-10 translate-y-[-50%]">
-            <div className="py-4 px-2 absolute top-2 right-2">
-              <h1 className="bg-primary text-white w-fit p-2 rounded" onClick={() => setShowImg(null)}>close</h1>
-            </div>
-            <img src={showImg} className="rounded" alt="" />
-          </div>
-        }
-
-        <div className='w-full h-full grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-[500px] lg:max-w-[1000px] mx-auto px-4'>
           <div className='h-full relative '>
             <img src={data?.img} className='w-full rounded-xl' alt="" />
             <h1 className='bg-primary text-white w-[70px] h-[30px] text-center rounded absolute top-[-6px] left-[-6px] '>{data?.categorie}</h1>
@@ -89,12 +80,8 @@ export default function ProjectDetails() {
               data?.photos?.length &&
               <div className='mt-10'>
                 <h1 className='capitalize text-[14pt]'>photos</h1>
-
                 <div className='grid grid-cols-1 gap-2 mt-4'>
-                  {
-                    data?.photos?.map((p, index) => <img onClick={() => setShowImg(p)} key={index} src={p} className='h-fit w-full' alt="" />)
-                  }
-                  
+                  {data?.photos?.map((p, index) => <img key={index} src={p} className='h-fit w-full' alt="" />)}
                 </div>
               </div>
             }
