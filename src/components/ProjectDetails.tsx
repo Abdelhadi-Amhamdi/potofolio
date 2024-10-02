@@ -5,7 +5,7 @@ import { db } from "../firebase"
 import { FaArrowLeft } from "react-icons/fa"
 import { getIcon } from "../data"
 import { useQuery } from "@tanstack/react-query"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 
 
 export default function ProjectDetails() {
