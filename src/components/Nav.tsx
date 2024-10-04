@@ -34,7 +34,7 @@ export default function Nav() {
               <TbLanguage className="ml-2" />
             </li>
             <li className='ml-4 relative bg-primary h-[35px] flex items-center text-white py-1 rounded-full'>
-              <a href="/Resume.pdf" target="_blank" className="h-full flex items-center w-full px-4">
+              <a href={`${lang == 'en' ? "aamhamdi-resume-en.pdf" : "aamhamdi-resume-fr.pdf"}`} target="_blank" className="h-full flex items-center w-full px-4">
                 <h1 className='capitalize text-[13px] flex items-center'>resume <SiReaddotcv className="ml-2" /></h1>
               </a>
               <div className="absolute top-[-3px] left-[-3px] flex h-[14px] w-[14px]">
