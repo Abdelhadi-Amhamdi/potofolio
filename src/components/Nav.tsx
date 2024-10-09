@@ -2,7 +2,7 @@ import { useContext } from "react"
 import { ThemeContext } from "../contexts"
 import { SiReaddotcv } from "react-icons/si"
 import { TbLanguage } from "react-icons/tb"
-import { PiMoonStarsLight } from "react-icons/pi"
+import { PiMoonStarsLight, PiSunHorizon } from "react-icons/pi"
 import { Link } from 'react-router-dom'
 
 
@@ -22,7 +22,8 @@ export default function Nav() {
             <li onClick={() => {
               themeHandler!(theme == 'light' ? 'dark' : 'light')
             }} className={`cursor-pointer border-[1px] ${theme == 'light' ? "border-black/50" : "border-white/40"}  h-[35px] p-2 rounded-full`}>
-              <PiMoonStarsLight />
+              {theme == 'light' ?  <PiSunHorizon /> : <PiMoonStarsLight />}
+              
             </li>
             <li onClick={() => {
               langHandler!(lang == 'en' ? 'fr' : 'en')
@@ -37,10 +38,6 @@ export default function Nav() {
               <a href={`${lang == 'en' ? "aamhamdi-resume-en.pdf" : "aamhamdi-resume-fr.pdf"}`} target="_blank" className="h-full flex items-center w-full px-4">
                 <h1 className='capitalize text-[13px] flex items-center'>resume <SiReaddotcv className="ml-2" /></h1>
               </a>
-              <div className="absolute top-[-3px] left-[-3px] flex h-[14px] w-[14px]">
-                <span className="bg-red-600 w-full h-full rounded-full absolute animate-ping"></span>
-                <span className="bg-red-500 w-full h-full rounded-full"></span>
-              </div>
             </li>
           </ul>
         </nav>
