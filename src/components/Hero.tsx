@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { links, eninfos , frInfos} from "../data";
+import { links, eninfos , frInfos, icons} from "../data";
 import Img from "./Img";
 import { ThemeContext } from "../contexts";
 import { SiReaddotcv } from "react-icons/si";
@@ -12,26 +12,32 @@ gsap.registerPlugin(MotionPathPlugin);
 
 export function Orbit() {
 
-  
+  const {theme} = useContext(ThemeContext) || {}
 
   useEffect(() => {
     const timer = setTimeout(() => {
 
-      // function orbitAnimation(icon : string , orbit : string) {
-      //   gsap.to(icon, {
-      //     duration: 10,
-      //     repeat: -1,
-      //     ease: "none",
-      //     motionPath: {
-      //       path: orbit,
-      //       align: orbit,
-      //       alignOrigin: [0.5, 0.5],
-      //       start : 0,
-      //       end : 1,
-      //       autoRotate : false,
-      //     },
-      //   })
-      // }
+      function orbitAnimation(icon : string , orbit : string, index : number) {
+
+        const path : SVGPathElement | null = document.querySelector(orbit)
+        const pathLenght = path?.getTotalLength()
+        const space = pathLenght! / icons.length
+        gsap.to(icon, {
+          duration: 50,
+          repeat: -1,
+          ease: "none",
+          motionPath: {
+            path: orbit,
+            align: orbit,
+            alignOrigin: [0.5, 0.5],
+            start : (index * space) / pathLenght!,
+            end : ((index * space) / pathLenght!) + 1,
+            autoRotate : false,
+          },
+        })
+      }
+
+      icons.forEach((i,index) => orbitAnimation(i.icon, i.orbit, index))
 
 
     }, 300)
@@ -40,8 +46,8 @@ export function Orbit() {
   }, [])
 
   return (
-    <div className='h-[400px] flex items-center justify-center'>
-      <OrbitSvg />
+    <div className='h-[600px] flex items-center justify-center'>
+      <OrbitSvg theme={theme} />
     </div>
   )
 }

@@ -86,42 +86,42 @@ export const articles = [
 export const icons = [
     {
       icon : "#python",
-      orbit : "orbit1",
+      orbit : "#orbit1",
     },
     {
       icon : "#js",
-      orbit : "orbit1",
+      orbit : "#orbit1",
     },
     {
       icon : "#react",
-      orbit : "orbit1",
+      orbit : "#orbit3",
     },
     {
       icon : "#firebase",
-      orbit : "orbit1",
+      orbit : "#orbit1",
     },
     {
       icon : "#code",
-      orbit : "orbit1",
+      orbit : "#orbit2",
     },
     {
       icon : "#terminal",
-      orbit : "orbit1",
+      orbit : "#orbit2",
     },
     {
       icon : "#git",
-      orbit : "orbit1",
+      orbit : "#orbit1",
     },
     {
       icon : "#html",
-      orbit : "orbit1",
+      orbit : "#orbit1",
     },
     {
       icon : "#css",
-      orbit : "orbit1",
+      orbit : "#orbit3",
     },
     {
       icon : "#vscode",
-      orbit : "orbit1",
+      orbit : "#orbit1",
     },
   ]

@@ -1,8 +1,8 @@
 
 
-export function OrbitSvg() {
+export function OrbitSvg({theme}) {
     return (
-        <svg className="overflow-visible " width="526" height="227" viewBox="0 0 526 227" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg className="w-full h-full p-10 overflow-visible" width="526" height="227" viewBox="0 0 526 227" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="Group 2">
 <g id="orbits">
 <path id="orbit3" d="M474.5 140.5C474.5 151.271 468.337 161.6 457.037 171.062C445.739 180.521 429.361 189.061 409.079 196.244C368.518 210.607 312.453 219.5 250.5 219.5C188.547 219.5 132.481 210.607 91.9214 196.244C71.6392 189.061 55.2611 180.521 43.9633 171.062C32.6628 161.6 26.5 151.271 26.5 140.5C26.5 129.729 32.6628 119.4 43.9633 109.938C55.2611 100.479 71.6392 91.9387 91.9214 84.7563C132.481 70.3932 188.547 61.5 250.5 61.5C312.453 61.5 368.518 70.3932 409.079 84.7563C429.361 91.9387 445.739 100.479 457.037 109.938C468.337 119.4 474.5 129.729 474.5 140.5Z" stroke="url(#paint0_linear_20_6)"/>
@@ -236,15 +236,15 @@ export function OrbitSvg() {
 </g>
 <defs>
 <linearGradient id="paint0_linear_20_6" x1="251" y1="61" x2="250.5" y2="220" gradientUnits="userSpaceOnUse">
-<stop stopOpacity="0"/>
+<stop stopOpacity="0" stopColor={`${theme == 'light' ? "#ffffff" : "#000000"}`}/>
 <stop offset="1" stopColor="#E94057"/>
 </linearGradient>
 <linearGradient id="paint1_linear_20_6" x1="252.5" y1="61" x2="252.5" y2="220" gradientUnits="userSpaceOnUse">
-<stop offset="0.09" stopOpacity="0"/>
+<stop offset="0.09" stopOpacity="0" stopColor={`${theme == 'light' ? "#ffffff" : "#000000"}`}/>
 <stop offset="1" stopColor="#E94057"/>
 </linearGradient>
 <linearGradient id="paint2_linear_20_6" x1="263" y1="40.5" x2="263" y2="220" gradientUnits="userSpaceOnUse">
-<stop stopOpacity="0"/>
+<stop stopOpacity="0" stopColor={`${theme == 'light' ? "#ffffff" : "#000000"}`} />
 <stop offset="1" stopColor="#E94057"/>
 </linearGradient>
 <radialGradient id="paint3_radial_20_6" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(256 126) rotate(-90) scale(101 185)">

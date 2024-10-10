@@ -27,7 +27,7 @@ function MainPage() {
   return (
     <div className='max-w-[1000px] mx-auto'>
       <Hero />
-      <Projects />
+      {/* <Projects /> */}
       <Articles />
       <Orbit />
     </div>
