@@ -1,6 +1,6 @@
 
 
-export function OrbitSvg({theme}) {
+export function OrbitSvg({theme } : {theme : string}) {
     return (
         <svg className="w-full h-full p-10 overflow-visible" width="526" height="227" viewBox="0 0 526 227" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="Group 2">

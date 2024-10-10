@@ -47,7 +47,7 @@ export function Orbit() {
 
   return (
     <div className='h-[600px] flex items-center justify-center'>
-      <OrbitSvg theme={theme} />
+      <OrbitSvg theme={theme!} />
     </div>
   )
 }
