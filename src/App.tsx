@@ -1,6 +1,6 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider, Outlet } from 'react-router-dom'
 import ThemeContextProvider, {ThemeContext} from './contexts.js'
-import {useContext, useEffect } from 'react'
+import {useContext } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import Nav from './components/Nav'
@@ -25,7 +25,7 @@ const router = createBrowserRouter(
 
 function MainPage() {
   return (
-    <div className='max-w-[1000px] mx-auto overflow-hidden'>
+    <div className='max-w-[1000px] mx-auto'>
       <Hero />
       <Projects />
       <Articles />
@@ -37,7 +37,7 @@ function MainPage() {
 function Main() {
   const theme = useContext(ThemeContext)
   return (
-      <div className={`${theme?.theme == 'light' ? "bg-white text-black/80" : "bg-black text-white"} bg-ascii w-full h-full overflow-y-scroll`}>
+      <div className={`${theme?.theme == 'light' ? "bg-white text-black/80" : "bg-black text-white"} bg-ascii w-full h-full overflow-x-hidden overflow-y-scroll`}>
         <Nav />
         <Outlet />
         <Footer />
