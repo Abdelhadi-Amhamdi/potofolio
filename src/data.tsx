@@ -4,23 +4,23 @@ import {SiNginx, SiMariadb, SiCplusplus, SiPostgresql, SiTailwindcss} from 'reac
 export function getIcon(tech : string) {
     switch (tech) {
         case "react":
-            return <FaReact />            
+            return <FaReact />
         case "python":
-            return <FaPython />            
+            return <FaPython />
         case "docker":
-            return <FaDocker />            
+            return <FaDocker />
         case "wordpress":
-            return <FaWordpress />            
+            return <FaWordpress />
         case "nginx":
-            return <SiNginx />       
+            return <SiNginx />
         case "mariadb":
-            return <SiMariadb />       
+            return <SiMariadb />
         case "cplusplus":
-            return <SiCplusplus />            
+            return <SiCplusplus />
         case "postgresql":
-            return <SiPostgresql />       
+            return <SiPostgresql />
         case "tailwindcss":
-            return <SiTailwindcss />       
+            return <SiTailwindcss />
     
         default:
             return tech
@@ -82,3 +82,46 @@ export const articles = [
     }
 ]
 
+
+export const icons = [
+    {
+      icon : "#python",
+      orbit : "orbit1",
+    },
+    {
+      icon : "#js",
+      orbit : "orbit1",
+    },
+    {
+      icon : "#react",
+      orbit : "orbit1",
+    },
+    {
+      icon : "#firebase",
+      orbit : "orbit1",
+    },
+    {
+      icon : "#code",
+      orbit : "orbit1",
+    },
+    {
+      icon : "#terminal",
+      orbit : "orbit1",
+    },
+    {
+      icon : "#git",
+      orbit : "orbit1",
+    },
+    {
+      icon : "#html",
+      orbit : "orbit1",
+    },
+    {
+      icon : "#css",
+      orbit : "orbit1",
+    },
+    {
+      icon : "#vscode",
+      orbit : "orbit1",
+    },
+  ]

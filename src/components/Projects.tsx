@@ -12,15 +12,15 @@ function ProjectSkelton() {
     const theme = useContext(ThemeContext)
     return (
       <li  className={`animate-pulse backdrop-blur-none relative border-[.3px] p-2 rounded-sm ${theme?.theme == 'dark' ? "border-white/20" : "border-black/20"}`}>
-          <div className='w-full h-[150px] bg-gray-100'></div>
-          <div className='absolute top-[3px] left-[3px] h-[25px] w-[50px] rounded-sm bg-gray-300 '></div>
+          <div className='w-full h-[150px] bg-gray-100 rounded-sm'></div>
+          <div className='absolute top-[3px] left-[3px] h-[25px] w-[50px] bg-gray-300 rounded-full'></div>
           <div className='p-2'>
-            <div className='bg-gray-100 w-1/2 h-[15px]'></div>
-            <div className='bg-gray-100 w-1/3 h-[35px] mt-2'></div>
-            <div className='bg-gray-100 w-full h-[6px] mt-2'></div>
-            <div className='bg-gray-100 w-full h-[6px] mt-2'></div>
-            <div className='bg-gray-100 w-2/3 h-[6px] mt-2'></div>
-            <div className='bg-gray-100 w-1/3 h-[6px] mt-2'></div>
+            <div className='bg-gray-100 w-1/2 h-[15px] rounded-full'></div>
+            <div className='bg-gray-100 w-1/3 h-[35px] mt-2 rounded-full'></div>
+            <div className='bg-gray-100 w-full h-[6px] mt-2 rounded-full'></div>
+            <div className='bg-gray-100 w-full h-[6px] mt-2 rounded-full'></div>
+            <div className='bg-gray-100 w-2/3 h-[6px] mt-2 rounded-full'></div>
+            <div className='bg-gray-100 w-1/3 h-[6px] mt-2 rounded-full'></div>
           </div>
       </li>
     )

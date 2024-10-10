@@ -1,16 +1,56 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { links, eninfos , frInfos} from "../data";
 import Img from "./Img";
 import { ThemeContext } from "../contexts";
 import { SiReaddotcv } from "react-icons/si";
 import Arrow from "./Arrow";
+import { gsap } from 'gsap'
+import { MotionPathPlugin } from 'gsap/MotionPathPlugin'
+import { OrbitSvg } from "./OrbitSvg";
 
+gsap.registerPlugin(MotionPathPlugin);
+
+export function Orbit() {
+
+  
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+
+      // function orbitAnimation(icon : string , orbit : string) {
+      //   gsap.to(icon, {
+      //     duration: 10,
+      //     repeat: -1,
+      //     ease: "none",
+      //     motionPath: {
+      //       path: orbit,
+      //       align: orbit,
+      //       alignOrigin: [0.5, 0.5],
+      //       start : 0,
+      //       end : 1,
+      //       autoRotate : false,
+      //     },
+      //   })
+      // }
+
+
+    }, 300)
+
+    return () => clearTimeout(timer)
+  }, [])
+
+  return (
+    <div className='h-[400px] flex items-center justify-center'>
+      <OrbitSvg />
+    </div>
+  )
+}
 
 export default function Hero() {
     const {lang} = useContext(ThemeContext) || {}
     return (
           <div className={`p-2 mt-10 py-16 sm:flex sm:justify-center items-center text-center`}>
-            <div className='sm:w-1/2 flex items-center'>
+            <div className='sm:w-1/2 flex items-center z-10'>
               <div className="w-full">
                 <h1 className='text-xl font-bold my-8 text-[22pt] capitalize'>{lang == 'en' ? eninfos.greeting : frInfos.greeting} <span className='bg-primary text-transparent bg-clip-text'>Abdelhadi Amhamdi</span> 👋</h1>
                 <p className='text-[10pt] px-2 text-pretty'>{lang == 'en' ? eninfos.desc :  frInfos.desc}</p>
@@ -35,8 +75,8 @@ export default function Hero() {
                 </div>
               </div>
             </div>
-            <div className='sm:w-1/2  h-[400px] flex items-center justify-center'>
-              <div className="m-10">
+            <div className='sm:w-1/2 h-[400px] flex items-center justify-center'>
+              <div className="m-6">
                 <Img />
               </div>
             </div>

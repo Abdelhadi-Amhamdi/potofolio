@@ -1,10 +1,10 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider, Outlet } from 'react-router-dom'
 import ThemeContextProvider, {ThemeContext} from './contexts.js'
-import {useContext } from 'react'
+import {useContext, useEffect } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import Nav from './components/Nav'
-import Hero from './components/Hero'
+import Hero, { Orbit } from './components/Hero'
 import Projects from './components/Projects'
 import ProjectDetails from './components/ProjectDetails.js'
 import Articles from './components/Articles.js'
@@ -21,12 +21,15 @@ const router = createBrowserRouter(
   )
 )
 
+
+
 function MainPage() {
   return (
-    <div className='max-w-[1000px] mx-auto'>
+    <div className='max-w-[1000px] mx-auto overflow-hidden'>
       <Hero />
       <Projects />
       <Articles />
+      <Orbit />
     </div>
   )
 }
@@ -36,8 +39,8 @@ function Main() {
   return (
       <div className={`${theme?.theme == 'light' ? "bg-white text-black/80" : "bg-black text-white"} bg-ascii w-full h-full overflow-y-scroll`}>
         <Nav />
-          <Outlet />
-          <Footer />
+        <Outlet />
+        <Footer />
       </div>
   )
 }

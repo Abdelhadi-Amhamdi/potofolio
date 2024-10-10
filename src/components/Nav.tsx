@@ -30,7 +30,7 @@ export default function Nav() {
             }} className={`cursor-pointer w-[100px] border-[1px] ${theme == 'light' ? "border-black/50" : "border-white/40"} h-[35px]  p-2 rounded-full ml-2 flex items-center justify-center`}>
               <h1 className="text-[10pt] flex items-center">
                 <span className="text-[14pt] mr-2">{lang == 'en' ? "🇱🇷" : "🇫🇷"}</span>
-                <h1>{lang}</h1>
+                <p>{lang}</p>
               </h1>
               <TbLanguage className="ml-2" />
             </li>
