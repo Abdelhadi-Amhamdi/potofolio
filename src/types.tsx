@@ -21,3 +21,18 @@ export type ProjectType = {
     time : string,
     links : PLink
 }
+
+type AuthorType = {
+    fullname : string,
+    image : string
+}
+
+export type ArticleType = {
+    title : string,
+    image : string,
+    description : string,
+    link : string,
+    pub_date : string,
+    tags : string[],
+    author : AuthorType
+}

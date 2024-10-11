@@ -21,7 +21,6 @@ export function getIcon(tech : string) {
             return <SiPostgresql />
         case "tailwindcss":
             return <SiTailwindcss />
-    
         default:
             return tech
     }
@@ -71,17 +70,6 @@ export const links  = [
         link : "https://github.com/Abdelhadi-Amhamdi"
     },
 ]
-
-export const articles = [
-    {
-        title : "What are CPU registers",
-        desc : "Computer registers are small, high-speed storage units within a computer's central processing unit (CPU) used to temporarily hold data and instructions",
-        image : "/cpu.jpg",
-        link : "https://dev.to/aamhamdi/what-are-cpu-registers-4275",
-        tags : ["unix"]
-    }
-]
-
 
 export const icons = [
     {
