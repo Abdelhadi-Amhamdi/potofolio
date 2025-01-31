@@ -36,3 +36,15 @@ export type ArticleType = {
     tags : string[],
     author : AuthorType
 }
+
+
+export type CertifeType = {
+    id : string,
+    title : string,
+    description : string,
+    link : string,
+    platform : string,
+    date : string,
+    image : string,
+    logo : string
+}

@@ -9,6 +9,7 @@ import Projects from './components/Projects'
 import ProjectDetails from './components/ProjectDetails.js'
 import Articles from './components/Articles.js'
 import Footer from './components/Footer.js'
+import Certifes from './components/Certificates.js'
 
 const queryClient = new QueryClient()
 
@@ -29,6 +30,7 @@ function MainPage() {
       <Hero />
       <Projects />
       <Articles />
+      <Certifes />
       <Orbit />
     </div>
   )
