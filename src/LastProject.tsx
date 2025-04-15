@@ -10,7 +10,7 @@ export default function LastProject() {
           theme === "light"
             ? "bg-white text-black"
             : "bg-black text-white border-white/10 shadow-white/10"
-        } mt-16 border-[1px] shadow-xl rounded`}
+        } my-[200px] border-[1px] shadow-xl rounded`}
       >
         <div className="absolute top-[-10px] left-[-10px] bg-primary px-8 rounded text-sm py-3 text-white font-cav">
           new project
