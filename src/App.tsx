@@ -46,7 +46,7 @@ function Main() {
   const theme = useContext(ThemeContext)
   return (
       <div className={`${theme?.theme == 'light' ? "bg-white text-black/80" : "bg-black text-white"} bg-ascii w-full h-full overflow-x-hidden overflow-y-scroll`}>
-        <Nav />``
+        <Nav />
         <Outlet />
         <Footer />
       </div>

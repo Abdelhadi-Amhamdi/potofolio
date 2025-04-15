@@ -6,7 +6,7 @@ export default function LastProject() {
   return (
     <div>
       <div
-        className={`relative grid gap-2 h-[500px] grid-cols-12 ${
+        className={`relative grid gap-2 h-fit md:h-[500px] grid-cols-12 ${
           theme === "light"
             ? "bg-white text-black"
             : "bg-black text-white border-white/10 shadow-white/10"
@@ -15,8 +15,8 @@ export default function LastProject() {
         <div className="absolute top-[-10px] left-[-10px] bg-primary px-8 rounded text-sm py-3 text-white font-cav">
           new project
         </div>
-        <div className="col-span-6 pl-20 flex justify-center items-center">
-          <div>
+        <div className="col-span-12 md:col-span-6 md:pl-20 h-[500px] md:h-full flex justify-center items-center">
+          <div className="px-6 md:p-0">
             <p className="text-lg font-cav">new project</p>
             <h1 className="mt-2 text-[30pt] font-semibold">
               Interactive Gaming & Chat Platform
@@ -40,7 +40,7 @@ export default function LastProject() {
             </button>
           </div>
         </div>
-        <div className="col-span-6 flex items-end">
+        <div className="col-span-12 md:col-span-6 flex items-end">
           <img
             src={theme === "light" ? "/7.png" : "5.png"}
             className="h-auto rounded w-full"
