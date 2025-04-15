@@ -6,12 +6,16 @@ export default function LastProject() {
   return (
     <div>
       <div
-        className={`relative grid gap-2 h-fit md:h-[500px] grid-cols-12 my-[200px] rounded`}
+        className={`relative grid gap-2 h-fit md:h-[500px] grid-cols-12 ${
+          theme === "light"
+            ? ""
+            : "border-white/20 shadow-white/20"
+        } my-[200px] border-[.3px] shadow-xs rounded`}
       >
         <div className="absolute top-[-10px] left-[-10px] bg-primary px-8 rounded text-sm py-3 text-white font-cav">
           new project
         </div>
-        <div className="col-span-12 md:col-span-6 bg-transparent md:pl-20 h-[500px] md:h-full flex justify-center items-center">
+        <div className="col-span-12 md:col-span-6 md:pl-20 h-[500px] md:h-full flex justify-center items-center">
           <div className="px-6 md:p-0">
             <p className="text-lg font-cav">new project</p>
             <h1 className="mt-2 text-[30pt] font-semibold">
@@ -25,7 +29,7 @@ export default function LastProject() {
               community, friendly competition, and seamless user experience
               across all features.
             </p>
-            <button className="mt-6 bg-primary h-[44px] w-[160px] rounded-full flex">
+            <button className="mt-6 bg-primary h-[44px] w-[160px] rounded flex">
               <a
                 className="text-sm w-full h-full flex items-center justify-center text-white"
                 href="https://ping-pong.tech/"
