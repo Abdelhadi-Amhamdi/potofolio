@@ -10,6 +10,7 @@ import ProjectDetails from './components/ProjectDetails.js'
 import Articles from './components/Articles.js'
 import Footer from './components/Footer.js'
 import Certifes from './components/Certificates.js'
+import LastProject from './LastProject.js'
 
 const queryClient = new QueryClient()
 
@@ -25,9 +26,14 @@ const router = createBrowserRouter(
 
 
 function MainPage() {
+
+
+
   return (
+
     <div className='max-w-[1000px] mx-auto'>
       <Hero />
+      <LastProject />
       <Projects />
       <Articles />
       <Certifes />
@@ -40,7 +46,7 @@ function Main() {
   const theme = useContext(ThemeContext)
   return (
       <div className={`${theme?.theme == 'light' ? "bg-white text-black/80" : "bg-black text-white"} bg-ascii w-full h-full overflow-x-hidden overflow-y-scroll`}>
-        <Nav />
+        <Nav />``
         <Outlet />
         <Footer />
       </div>
