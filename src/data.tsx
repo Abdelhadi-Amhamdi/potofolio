@@ -5,6 +5,8 @@ export function getIcon(tech : string) {
     switch (tech) {
         case "react":
             return <FaReact />
+        case "react-native":
+            return <FaReact />
         case "python":
             return <FaPython />
         case "docker":
